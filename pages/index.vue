@@ -92,7 +92,15 @@ export default {
             console.log('error', error)
             this.snackbar = true
             this.snackbarColor = 'red darken-1'
-            this.snackbarText = error.code + '/' + error.message
+            if (error.code === 1) {
+              this.snackbarText =
+                'Please allow location services to use this feature.'
+            } else if (error.code === 2) {
+              this.snackbarText = "Can't get GPS coordinates."
+            } else if (error.code === 3) {
+              this.snackbarText =
+                'It took too long to get coordinates. Please try again.'
+            }
             this.errorStr = error
             this.gettingLocation = false
           }
