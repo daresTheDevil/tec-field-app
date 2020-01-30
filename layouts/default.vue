@@ -43,9 +43,9 @@
       </v-btn> -->
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <v-btn @click.native="locateMe" icon>
+      <!-- <v-btn @click.native="locateMe" icon>
         <v-icon>mdi-crosshairs-gps</v-icon>
-      </v-btn>
+      </v-btn> -->
       <v-btn @click.stop="rightDrawer = !rightDrawer" icon>
         <v-icon>mdi-menu</v-icon>
       </v-btn>
@@ -57,13 +57,21 @@
     </v-content>
     <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
       <v-list>
-        <v-list-item @click.native="right = !right">
+        <v-list-item to="/" router exact>
           <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
+            <v-icon>mdi-home</v-icon>
           </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
+          <v-list-item-content>
+            <v-list-item-title>Home</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item to="locations" router exact>
+          <v-list-item-action>
+            <v-icon>mdi-map-marker</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Locations</v-list-item-title>
+          </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>

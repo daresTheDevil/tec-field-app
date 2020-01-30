@@ -39,6 +39,12 @@ export default {
       nativeUI: true
     }
   },
+  manifest: {
+    name: 'Tec Mapping Companion',
+    short_name: 'TECMaps',
+    lang: 'en',
+    display: 'standalone'
+  },
   /*
    ** Nuxt.js dev-modules
    */
