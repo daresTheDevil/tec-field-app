@@ -36,7 +36,7 @@ export default {
    */
   pwa: {
     meta: {
-      'apple-mobile-web-app-capable': true
+      nativeUI: true
     }
   },
   /*
