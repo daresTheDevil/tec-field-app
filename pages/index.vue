@@ -1,37 +1,57 @@
 <template>
-  <v-form class="mt-4">
-    <v-text-field color="deep-purple darken-3" outlined label="House Number" />
-    <v-text-field color="deep-purple darken-3" outlined label="Street Name" />
-    <v-text-field color="deep-purple darken-3" outlined label="City" />
-    <v-text-field color="deep-purple darken-3" outlined label="State" />
-    <v-text-field
-      color="deep-purple darken-3"
-      outlined
-      type="tel"
-      label="Zip Code"
-    />
-    <v-btn
-      block
-      depressed
-      dark
-      x-large
-      color="deep-purple darken-3"
-      @click.native="locateMe"
-      >Get Geolocation</v-btn
-    >
-    <span class="subheading">Location:</span>
-    <v-row v-if="this.location">
-      <v-chip v-if="this.location.coords">
-        {{ `Latitude: ${this.location.coords}` }}
-      </v-chip>
-    </v-row>
-  </v-form>
+  <v-card flat>
+    <v-card-text class="pb-0">
+      <v-form>
+        <v-text-field
+          color="deep-purple darken-3"
+          outlined
+          label="House Number"
+        />
+        <v-text-field
+          color="deep-purple darken-3"
+          outlined
+          label="Street Name"
+        />
+        <v-text-field color="deep-purple darken-3" outlined label="City" />
+        <v-text-field color="deep-purple darken-3" outlined label="State" />
+        <v-text-field
+          color="deep-purple darken-3"
+          outlined
+          type="tel"
+          label="Zip Code"
+        />
+      </v-form>
+    </v-card-text>
+    <template v-if="location">
+      <v-divider />
+      <v-subheader>Location:</v-subheader>
+      <v-card-actions class="pt-0">
+        <v-chip class="mr-4">Lat: {{ location.coords.latitude }}</v-chip>
+        <v-chip>Long: {{ location.coords.longitude }}</v-chip>
+        <v-spacer />
+        <v-btn icon color="red"><v-icon>mdi-close</v-icon></v-btn>
+      </v-card-actions>
+      <v-divider />
+    </template>
+
+    <v-card-actions v-else>
+      <v-btn block depressed color="deep-purple darken-3" dark @click="locateMe"
+        >Get geolocation</v-btn
+      >
+    </v-card-actions>
+
+    <v-card-actions class="mt-4">
+      <v-spacer />
+      <v-btn depressed large dark color="deep-purple darken-3">Save</v-btn>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script>
 export default {
   data: () => ({
     chips: [],
+    loading: false,
     location: null,
     snackbar: false,
     gettingLocation: false,
@@ -49,10 +69,12 @@ export default {
           (success) => {
             this.snackbar = true
             this.location = success
+            this.gettingLocation = false
             console.log('success', success)
           },
           (error) => {
             console.log('error', error)
+            this.gettingLocation = false
           }
         )
       }
