@@ -92,7 +92,7 @@ export default {
             console.log('error', error)
             this.snackbar = true
             this.snackbarColor = 'red darken-1'
-            this.snackbarText = `error`
+            this.snackbarText = error
             this.errorStr = error
             this.gettingLocation = false
           }
