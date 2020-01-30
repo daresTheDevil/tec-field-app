@@ -70,7 +70,7 @@
     <v-snackbar
       v-model="snackbar"
       multi-line
-      :color="errorStr ? 'red' : 'green'"
+      :color="errorStr ? 'red darken-1' : 'teal darken-2'"
     >
       <span v-if="errorStr">
         {{ errorStr }}
@@ -124,25 +124,31 @@ export default {
         }
 
         navigator.geolocation.getCurrentPosition(
-          (pos) => {
-            this.snackbar = true
-            resolve(pos)
+          (success) => {
+            console.log('success', success)
           },
-          (err) => {
-            this.snackbar = true
-            reject(err)
+          (error) => {
+            console.log('error', error)
           }
         )
       })
     },
     async locateMe() {
       this.gettingLocation = true
-      try {
-        this.gettingLocation = false
-        this.location = await this.getLocation()
-      } catch (e) {
-        this.gettingLocation = false
-        this.errorStr = e.message
+      if (!('geolocation' in navigator)) {
+        this.snackbar = true
+        this.errorStr = 'Geolocation service is not available.'
+      } else {
+        await navigator.geolocation.getCurrentPosition(
+          (success) => {
+            this.snackbar = true
+            this.location = success
+            console.log('success', success)
+          },
+          (error) => {
+            console.log('error', error)
+          }
+        )
       }
     }
   }

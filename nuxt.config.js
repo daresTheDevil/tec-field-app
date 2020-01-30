@@ -32,6 +32,14 @@ export default {
    */
   plugins: ['~/plugins/geolocation'],
   /*
+   ** PWA setup
+   */
+  pwa: {
+    meta: {
+      'apple-mobile-web-app-capable': true
+    }
+  },
+  /*
    ** Nuxt.js dev-modules
    */
   buildModules: [
