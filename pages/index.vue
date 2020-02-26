@@ -326,6 +326,7 @@ export default {
       tempLocations.push(this.customerLocation)
       const parsed = JSON.stringify(tempLocations)
       localStorage.setItem('locations', parsed)
+      this.$router.push('locations')
     },
     async locateMe() {
       this.gettingLocation = true
